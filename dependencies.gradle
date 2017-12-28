@@ -14,15 +14,14 @@ ext.versions = [
         androidSupportLib  : '27.0.2',
         okHttp             : '3.2.0',
         retrofit           : '2.3.0',
-        timber             : '4.6.0',
         mosby             : '3.0.4',
 ]
 
 ext.libraries = [
         dagger                : "com.google.dagger:dagger:$versions.dagger",
         daggerCompiler        : "com.google.dagger:dagger-compiler:$versions.dagger",
-        daggerAndroidProcessor: "com.google.dagger:dagger-compiler:$versions.dagger",
-        daggerAndroidSupport  : "com.google.dagger:dagger-compiler:$versions.dagger",
+        daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:$versions.dagger",
+        daggerAndroidSupport  : "com.google.dagger:dagger-android-support:$versions.dagger",
 
         rxJava                : "io.reactivex.rxjava2:rxjava:$versions.rxJava",
         rxAndroid             : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
@@ -34,8 +33,7 @@ ext.libraries = [
         supportAnnotations    : "com.android.support:support-annotations:$versions.androidSupportLib",
         supportAppCompat      : "com.android.support:appcompat-v7:$versions.androidSupportLib",
         supportDesign         : "com.android.support:design:$versions.androidSupportLib",
+        cardView         : "com.android.support:cardview-v7:$versions.androidSupportLib",
 
         mosbyMvp              : "com.hannesdorfmann.mosby3:viewstate:$versions.mosby",
-
-        timber                : "com.jakewharton.timber:timber:$versions.timber",
 ]

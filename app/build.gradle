@@ -35,6 +35,7 @@ dependencies {
     implementation libraries.supportAppCompat
     implementation libraries.supportDesign
     implementation libraries.supportAnnotations
+    implementation libraries.cardView
 
     implementation libraries.rxJava
     implementation libraries.rxAndroid
