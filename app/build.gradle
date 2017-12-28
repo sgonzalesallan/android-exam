@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion versions.compileSdk
     defaultConfig {
         applicationId "com.rygalang.androidexam"
         minSdkVersion versions.minSdk
@@ -45,8 +45,8 @@ dependencies {
 
     implementation libraries.dagger
     implementation libraries.daggerAndroidSupport
-    implementation libraries.daggerCompiler
-    implementation libraries.daggerAndroidProcessor
+    annotationProcessor libraries.daggerCompiler
+    annotationProcessor libraries.daggerAndroidProcessor
 
 //    testImplementation 'junit:junit:4.12'
 //    androidTestImplementation 'com.android.support.test:runner:1.0.1'
