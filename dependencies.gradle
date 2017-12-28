@@ -15,6 +15,7 @@ ext.versions = [
         okHttp             : '3.2.0',
         retrofit           : '2.3.0',
         timber             : '4.6.0',
+        mosby             : '3.0.4',
 ]
 
 ext.libraries = [
@@ -33,6 +34,8 @@ ext.libraries = [
         supportAnnotations    : "com.android.support:support-annotations:$versions.androidSupportLib",
         supportAppCompat      : "com.android.support:appcompat-v7:$versions.androidSupportLib",
         supportDesign         : "com.android.support:design:$versions.androidSupportLib",
+
+        mosbyMvp              : "com.hannesdorfmann.mosby3:viewstate:$versions.mosby",
 
         timber                : "com.jakewharton.timber:timber:$versions.timber",
 ]
