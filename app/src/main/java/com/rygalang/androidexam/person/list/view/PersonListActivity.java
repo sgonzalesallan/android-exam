@@ -1,5 +1,6 @@
 package com.rygalang.androidexam.person.list.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,11 +12,14 @@ import com.rygalang.androidexam.base.AppConstant;
 import com.rygalang.androidexam.base.BaseActivity;
 import com.rygalang.androidexam.databinding.ActivityPersonListBinding;
 import com.rygalang.androidexam.model.Person;
+import com.rygalang.androidexam.person.details.view.PersonDetailActivity;
 import com.rygalang.androidexam.person.list.presenter.PersonListAction;
 
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.subjects.BehaviorSubject;
 
 
 public class PersonListActivity extends BaseActivity<PersonListView, PersonListAction>
@@ -23,6 +27,7 @@ public class PersonListActivity extends BaseActivity<PersonListView, PersonListA
 
     private ActivityPersonListBinding personListBinding;
     private PersonListAdapter personListAdapter;
+    public static BehaviorSubject<Person> personBehaviorSubject = BehaviorSubject.create();
 
     @Inject
     PersonListAction personListPresenter;
@@ -88,7 +93,12 @@ public class PersonListActivity extends BaseActivity<PersonListView, PersonListA
     }
 
     private void initPersonListRecycler() {
-        personListAdapter = new PersonListAdapter();
+        personListAdapter = new PersonListAdapter(this::selectedPerson);
         personListBinding.rvPersonList.setAdapter(personListAdapter);
+    }
+
+    private void selectedPerson(Person person) {
+        personBehaviorSubject.onNext(person);
+        startActivity(new Intent(this, PersonDetailActivity.class));
     }
 }

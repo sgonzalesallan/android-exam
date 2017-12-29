@@ -23,6 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:label="@string/person_details"
+            android:name=".person.details.view.PersonDetailActivity"></activity>
     </application>
 
 </manifest>

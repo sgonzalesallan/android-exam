@@ -10,6 +10,9 @@ import com.rygalang.androidexam.model.Person;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.PublishSubject;
+
 /**
  * Created by Computer3 on 12/28/2017.
  */
@@ -17,8 +20,11 @@ import java.util.List;
 public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.PersonListViewHolder> {
 
     private List<Person> personArrayList = new ArrayList<>();
+    private PublishSubject<Person> personPublishSubject;
 
-    public PersonListAdapter() {
+    public PersonListAdapter(Consumer<Person> onSelectPerson) {
+        personPublishSubject = PublishSubject.create();
+        personPublishSubject.subscribe(onSelectPerson);
     }
 
     public void setPersonArrayList(List<Person> personArrayList) {
@@ -39,6 +45,8 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Pe
         final Person person = personArrayList.get(position);
         holder.itemLayoutBinding.tvFullName.setText(String.format("%s %s", person.firstName, person.lastName));
         holder.itemLayoutBinding.tvEmail.setText(person.email);
+        holder.itemLayoutBinding.getRoot().setOnClickListener((v) -> personPublishSubject.onNext(person));
+
     }
 
     @Override
