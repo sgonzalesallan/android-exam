@@ -1,5 +1,6 @@
 package com.rygalang.androidexam.person.list;
 
+import com.rygalang.androidexam.database.AppDatabase;
 import com.rygalang.androidexam.person.list.presenter.PersonListAction;
 import com.rygalang.androidexam.person.list.presenter.PersonListPresenter;
 import com.rygalang.androidexam.person.service.PersonService;
@@ -14,7 +15,7 @@ import dagger.Provides;
 public class PersonListModule {
 
     @Provides
-    PersonListAction personListPresenter(PersonService personService) {
-        return new PersonListPresenter(personService);
+    PersonListAction personListPresenter(PersonService personService, AppDatabase appDatabase) {
+        return new PersonListPresenter(personService, appDatabase);
     }
 }

@@ -3,6 +3,7 @@ package com.rygalang.androidexam.di.component;
 import com.rygalang.androidexam.App;
 import com.rygalang.androidexam.di.module.ActivityBuilderModule;
 import com.rygalang.androidexam.di.module.ApplicationModule;
+import com.rygalang.androidexam.di.module.DatabaseModule;
 import com.rygalang.androidexam.di.module.NetworkModule;
 
 import javax.inject.Singleton;
@@ -21,7 +22,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
         AndroidInjectionModule.class,
         ApplicationModule.class,
         NetworkModule.class,
-        ActivityBuilderModule.class
+        ActivityBuilderModule.class,
+        DatabaseModule.class
 })
 public interface AppComponent extends AndroidInjector<App> {
     @Component.Builder
