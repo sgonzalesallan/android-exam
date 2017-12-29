@@ -1,6 +1,9 @@
 package com.rygalang.androidexam.base;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -55,4 +58,11 @@ public abstract class BaseActivity<V extends BaseView, P extends BaseAction<V>>
         if (BuildConfig.DEBUG)
             Log.d(TAG, message);
     }
+
+    public boolean hasActiveInternetConnection() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
+    }
+
 }
