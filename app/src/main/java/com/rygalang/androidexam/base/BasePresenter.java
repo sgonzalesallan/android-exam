@@ -2,6 +2,7 @@ package com.rygalang.androidexam.base;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -9,13 +10,14 @@ import io.reactivex.disposables.Disposable;
  */
 
 public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter<V> {
-    private Disposable disposable;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public void setDisposable(Disposable disposable) {
-        this.disposable = disposable;
+        this.compositeDisposable.add(disposable);
     }
 
     public void dispose() {
-        if (disposable != null && !disposable.isDisposed()) disposable.dispose();
+        if (compositeDisposable != null && !compositeDisposable.isDisposed())
+            this.compositeDisposable.clear();
     }
 }
