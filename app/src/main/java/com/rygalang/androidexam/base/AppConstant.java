@@ -6,4 +6,6 @@ package com.rygalang.androidexam.base;
 
 public class AppConstant {
     public static final String HOST_URL = "https://raw.githubusercontent.com/rygalang/android-exam/develop/rest_api/";
+    public static final String DB_NAME = "person-db";
+    public static final String NO_CONNECTION_ERROR_TEXT = "Please check your network connection and try again.";
 }
