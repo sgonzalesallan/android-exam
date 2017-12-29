@@ -3,6 +3,7 @@ package com.rygalang.androidexam.person.service;
 import com.rygalang.androidexam.model.Person;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
@@ -14,5 +15,5 @@ import retrofit2.http.GET;
 public interface PersonService {
 
     @GET("person")
-    Single<ArrayList<Person>> getPersonList();
+    Single<List<Person>> getPersonList();
 }
