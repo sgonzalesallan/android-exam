@@ -8,6 +8,7 @@ import com.rygalang.androidexam.databinding.PersonItemLayoutBinding;
 import com.rygalang.androidexam.model.Person;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Computer3 on 12/28/2017.
@@ -15,12 +16,12 @@ import java.util.ArrayList;
 
 public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.PersonListViewHolder> {
 
-    private ArrayList<Person> personArrayList = new ArrayList<>();
+    private List<Person> personArrayList = new ArrayList<>();
 
     public PersonListAdapter() {
     }
 
-    public void setPersonArrayList(ArrayList<Person> personArrayList) {
+    public void setPersonArrayList(List<Person> personArrayList) {
         this.personArrayList.clear();
         this.personArrayList.addAll(personArrayList);
         this.notifyDataSetChanged();
@@ -36,8 +37,8 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Pe
     @Override
     public void onBindViewHolder(PersonListViewHolder holder, int position) {
         final Person person = personArrayList.get(position);
-        holder.itemLayoutBinding.tvFullName.setText(person.getFullName());
-        holder.itemLayoutBinding.tvEmail.setText(person.getEmail());
+        holder.itemLayoutBinding.tvFullName.setText(String.format("%s %s", person.firstName, person.lastName));
+        holder.itemLayoutBinding.tvEmail.setText(person.email);
     }
 
     @Override

@@ -19,6 +19,14 @@
                 android:layout_height="match_parent"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 tools:listitem="@layout/person_item_layout" />
+
+            <TextView
+                android:id="@+id/tv_empty_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/no_items_found"
+                android:visibility="gone" />
         </FrameLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>

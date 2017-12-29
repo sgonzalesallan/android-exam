@@ -4,14 +4,16 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 
 import com.rygalang.androidexam.R;
+import com.rygalang.androidexam.base.AppConstant;
 import com.rygalang.androidexam.base.BaseActivity;
 import com.rygalang.androidexam.databinding.ActivityPersonListBinding;
 import com.rygalang.androidexam.model.Person;
 import com.rygalang.androidexam.person.list.presenter.PersonListAction;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -34,8 +36,13 @@ public class PersonListActivity extends BaseActivity<PersonListView, PersonListA
         personListBinding.srlPerson.setOnRefreshListener(this);
 
         initPersonListRecycler();
-
-        presenter.fetchPerson();
+        if (hasActiveInternetConnection()) {
+            presenter.fetchPerson();
+        } else {
+            displaySnackBar(personListBinding.getRoot(),
+                    AppConstant.NO_CONNECTION_ERROR_TEXT);
+            presenter.fetchPersonFromDb();
+        }
     }
 
     @NonNull
@@ -56,19 +63,28 @@ public class PersonListActivity extends BaseActivity<PersonListView, PersonListA
     }
 
     @Override
-    public void showPersonList(ArrayList<Person> personList) {
-        log(">>> " + personList.size());
+    public void showPersonList(List<Person> personList) {
         personListAdapter.setPersonArrayList(personList);
+        personListBinding.tvEmptyState.setVisibility(View.GONE);
     }
 
     @Override
     public void showError(String errorMessage) {
+        if (personListAdapter.getItemCount() == 0) {
+            personListBinding.tvEmptyState.setVisibility(View.VISIBLE);
+        }
         displaySnackBar(personListBinding.getRoot(), errorMessage);
     }
 
     @Override
     public void onRefresh() {
-        presenter.fetchPerson();
+        if (hasActiveInternetConnection()) {
+            presenter.fetchPerson();
+        } else {
+            displaySnackBar(personListBinding.getRoot(),
+                    AppConstant.NO_CONNECTION_ERROR_TEXT);
+            presenter.fetchPersonFromDb();
+        }
     }
 
     private void initPersonListRecycler() {
