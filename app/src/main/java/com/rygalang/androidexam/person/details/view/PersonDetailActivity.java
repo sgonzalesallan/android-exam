@@ -3,21 +3,13 @@ package com.rygalang.androidexam.person.details.view;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.rygalang.androidexam.R;
 import com.rygalang.androidexam.databinding.ActivityPersonDetailBinding;
 import com.rygalang.androidexam.model.Person;
 import com.rygalang.androidexam.person.list.view.PersonListActivity;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Year;
-import java.util.Calendar;
-import java.util.Date;
+import com.rygalang.androidexam.util.DateTimeUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -55,22 +47,17 @@ public class PersonDetailActivity extends AppCompatActivity {
         this.person = person;
         personDetailBinding.tvFullName.setText(String.format("%s, %s",
                 person.firstName, person.lastName));
-        personDetailBinding.tvBirthday.setText(convertDate(person.birthday));
+        final String parseFormat = "mm/dd/yyyy, hh:mm:ss a";
+        final String birthdayText = DateTimeUtils.toString(parseFormat,
+                "MMMM dd, yyyy", person.birthday);
+        final String ageText = String.format("%d years old",
+                DateTimeUtils.computeAge(DateTimeUtils.toDate(parseFormat, person.birthday)));
+        personDetailBinding.tvBirthday.setText(birthdayText);
+        personDetailBinding.tvAge.setText(ageText);
         personDetailBinding.tvEmail.setText(person.email);
         personDetailBinding.tvMobileNumber.setText(person.mobileNumber);
         personDetailBinding.tvAddress.setText(person.address);
         personDetailBinding.tvContactPersonNumber.setText(person.contactPerson.phoneNumber);
         personDetailBinding.tvContactPersonName.setText(person.contactPerson.name);
-    }
-
-    private String convertDate(String date) {
-        DateFormat from = new SimpleDateFormat("mm/dd/yyyy, hh:mm:ss a"); // wanted format
-        DateFormat to = new SimpleDateFormat("MMMM dd, yyyy"); // current format
-        try {
-            return to.format(from.parse(date));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 }
