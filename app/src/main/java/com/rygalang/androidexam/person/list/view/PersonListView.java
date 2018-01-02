@@ -17,4 +17,14 @@ public interface PersonListView extends BaseView {
     void showPersonList(List<Person> personList);
 
     void showError(String errorMessage);
+
+    void showNoConnectionError();
+
+    void showConnectionTimeout();
+
+    void displayEmptyView();
+
+    void showResourceNotFoundError();
+
+    void showServerError();
 }

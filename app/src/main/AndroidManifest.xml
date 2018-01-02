@@ -24,8 +24,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:label="@string/person_details"
-            android:name=".person.details.view.PersonDetailActivity"></activity>
+            android:name=".person.details.view.PersonDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/person_details"></activity>
     </application>
 
 </manifest>

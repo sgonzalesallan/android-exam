@@ -8,6 +8,6 @@ import com.rygalang.androidexam.person.list.view.PersonListView;
  */
 
 public interface PersonListAction extends BaseAction<PersonListView> {
-    void fetchPerson();
+    void fetchPersonFromRemote();
     void fetchPersonFromDb();
 }

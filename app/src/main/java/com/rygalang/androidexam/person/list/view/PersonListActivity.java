@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
@@ -37,17 +38,9 @@ public class PersonListActivity extends BaseActivity<PersonListView, PersonListA
         super.onCreate(savedInstanceState);
         personListBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_person_list);
-
         personListBinding.srlPerson.setOnRefreshListener(this);
-
         initPersonListRecycler();
-        if (hasActiveInternetConnection()) {
-            presenter.fetchPerson();
-        } else {
-            displaySnackBar(personListBinding.getRoot(),
-                    AppConstant.NO_CONNECTION_ERROR_TEXT);
-            presenter.fetchPersonFromDb();
-        }
+        fetchPerson();
     }
 
     @NonNull
@@ -55,7 +48,6 @@ public class PersonListActivity extends BaseActivity<PersonListView, PersonListA
     public PersonListAction createPresenter() {
         return personListPresenter;
     }
-
 
     @Override
     public void showLoading() {
@@ -75,21 +67,50 @@ public class PersonListActivity extends BaseActivity<PersonListView, PersonListA
 
     @Override
     public void showError(String errorMessage) {
-        if (personListAdapter.getItemCount() == 0) {
-            personListBinding.tvEmptyState.setVisibility(View.VISIBLE);
-        }
         displaySnackBar(personListBinding.getRoot(), errorMessage);
+        presenter.fetchPersonFromDb();
+    }
+
+    @Override
+    public void showNoConnectionError() {
+        Snackbar.make(personListBinding.getRoot(), getString(R.string.no_network_connection_error),
+                Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.retry), (v) -> fetchPerson()).show();
+        presenter.fetchPersonFromDb();
+    }
+
+    @Override
+    public void showConnectionTimeout() {
+        Snackbar.make(personListBinding.getRoot(), getString(R.string.network_slow_error),
+                Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.retry), (v) -> fetchPerson()).show();
+        presenter.fetchPersonFromDb();
+    }
+
+    @Override
+    public void displayEmptyView() {
+        personListBinding.tvEmptyState.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showResourceNotFoundError() {
+        Snackbar.make(personListBinding.getRoot(), getString(R.string.resource_not_found_error),
+                Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.retry), (v) -> fetchPerson()).show();
+        presenter.fetchPersonFromDb();
+    }
+
+    @Override
+    public void showServerError() {
+        Snackbar.make(personListBinding.getRoot(), getString(R.string.server_error),
+                Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.retry), (v) -> fetchPerson()).show();
+        presenter.fetchPersonFromDb();
     }
 
     @Override
     public void onRefresh() {
-        if (hasActiveInternetConnection()) {
-            presenter.fetchPerson();
-        } else {
-            displaySnackBar(personListBinding.getRoot(),
-                    AppConstant.NO_CONNECTION_ERROR_TEXT);
-            presenter.fetchPersonFromDb();
-        }
+        fetchPerson();
     }
 
     private void initPersonListRecycler() {
@@ -100,5 +121,14 @@ public class PersonListActivity extends BaseActivity<PersonListView, PersonListA
     private void selectedPerson(Person person) {
         personBehaviorSubject.onNext(person);
         startActivity(new Intent(this, PersonDetailActivity.class));
+    }
+
+    private void fetchPerson() {
+        if (hasActiveInternetConnection()) {
+            presenter.fetchPersonFromRemote();
+        } else {
+            showNoConnectionError();
+            presenter.fetchPersonFromDb();
+        }
     }
 }

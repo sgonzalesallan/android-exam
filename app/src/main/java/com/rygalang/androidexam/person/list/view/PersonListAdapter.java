@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.rygalang.androidexam.databinding.PersonItemLayoutBinding;
+import com.rygalang.androidexam.databinding.ItemPersonBinding;
 import com.rygalang.androidexam.model.Person;
 
 import java.util.ArrayList;
@@ -35,17 +35,17 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Pe
 
     @Override
     public PersonListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final PersonItemLayoutBinding itemLayoutBinding = PersonItemLayoutBinding
+        final ItemPersonBinding itemPersonBinding = ItemPersonBinding
                 .inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new PersonListViewHolder(itemLayoutBinding);
+        return new PersonListViewHolder(itemPersonBinding);
     }
 
     @Override
     public void onBindViewHolder(PersonListViewHolder holder, int position) {
         final Person person = personArrayList.get(position);
-        holder.itemLayoutBinding.tvFullName.setText(String.format("%s %s", person.firstName, person.lastName));
-        holder.itemLayoutBinding.tvEmail.setText(person.email);
-        holder.itemLayoutBinding.getRoot().setOnClickListener((v) -> personPublishSubject.onNext(person));
+        holder.itemPersonBinding.tvFullName.setText(String.format("%s %s", person.firstName, person.lastName));
+        holder.itemPersonBinding.tvEmail.setText(person.email);
+        holder.itemPersonBinding.getRoot().setOnClickListener((v) -> personPublishSubject.onNext(person));
 
     }
 
@@ -55,11 +55,11 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Pe
     }
 
     public class PersonListViewHolder extends RecyclerView.ViewHolder {
-        private PersonItemLayoutBinding itemLayoutBinding;
+        private ItemPersonBinding itemPersonBinding;
 
-        public PersonListViewHolder(PersonItemLayoutBinding itemLayoutBinding) {
-            super(itemLayoutBinding.getRoot());
-            this.itemLayoutBinding = itemLayoutBinding;
+        public PersonListViewHolder(ItemPersonBinding itemPersonBinding) {
+            super(itemPersonBinding.getRoot());
+            this.itemPersonBinding = itemPersonBinding;
         }
     }
 }

@@ -1,12 +1,14 @@
 package com.rygalang.androidexam.person.list.presenter;
 
+import com.rygalang.androidexam.base.AppConstant;
 import com.rygalang.androidexam.base.BasePresenter;
 import com.rygalang.androidexam.database.AppDatabase;
 import com.rygalang.androidexam.model.Person;
 import com.rygalang.androidexam.person.list.view.PersonListView;
 import com.rygalang.androidexam.person.service.PersonService;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,6 +16,8 @@ import javax.inject.Inject;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
+import retrofit2.http.HTTP;
 
 /**
  * Created by Computer3 on 12/28/2017.
@@ -23,7 +27,6 @@ public class PersonListPresenter extends BasePresenter<PersonListView> implement
 
     private PersonService personService;
     private AppDatabase appDatabase;
-    private List<Person> personList = new ArrayList<>();
 
     @Inject
     public PersonListPresenter(PersonService personService, AppDatabase appDatabase) {
@@ -32,18 +35,19 @@ public class PersonListPresenter extends BasePresenter<PersonListView> implement
     }
 
     @Override
-    public void fetchPerson() {
+    public void fetchPersonFromRemote() {
         getView().showLoading();
         setDisposable(personService.getPersonList()
-                .flatMap(this::insertAll)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(ids -> {
+                .subscribe(personList -> {
+                    insertAllPerson(personList);
                     getView().hideLoading();
                     getView().showPersonList(personList);
                 }, throwable -> {
+                    throwable.printStackTrace();
                     getView().hideLoading();
-                    getView().showError(throwable.getMessage());
+                    parseError(throwable);
                 }));
     }
 
@@ -53,9 +57,13 @@ public class PersonListPresenter extends BasePresenter<PersonListView> implement
         setDisposable(appDatabase.personDao().getAll()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(persons -> {
+                .subscribe(personList -> {
                     getView().hideLoading();
-                    getView().showPersonList(persons);
+                    if (personList.isEmpty()) {
+                        getView().displayEmptyView();
+                    } else {
+                        getView().showPersonList(personList);
+                    }
                 }, throwable -> {
                     getView().hideLoading();
                     getView().showError(throwable.getMessage());
@@ -68,8 +76,27 @@ public class PersonListPresenter extends BasePresenter<PersonListView> implement
         dispose();
     }
 
-    private Single<List<Long>> insertAll(List<Person> persons) {
-        this.personList = persons;
-        return Single.fromCallable(() -> appDatabase.personDao().batchInsert(persons));
+    private void insertAllPerson(List<Person> persons) {
+        setDisposable(Single.fromCallable(() -> appDatabase.personDao().batchInsert(persons))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe());
+    }
+
+    private void parseError(Throwable throwable) {
+        if (throwable instanceof SocketTimeoutException) {
+            getView().showConnectionTimeout();
+        } else if (throwable instanceof HttpException) {
+            final HttpException httpException = (HttpException) throwable;
+            if (httpException.code() == 404) {
+                getView().showResourceNotFoundError();
+            } else if (httpException.code() >= 500) {
+                getView().showServerError();
+            } else {
+                getView().showError(throwable.getMessage());
+            }
+        } else {
+            getView().showError(throwable.getMessage());
+        }
     }
 }
