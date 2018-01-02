@@ -4,4 +4,8 @@
     <string name="person_details">Person Details</string>
     <string name="contact_person">Contact Person</string>
     <string name="retry">RETRY</string>
+    <string name="no_network_connection_error">No connection.</string>
+    <string name="network_slow_error">Network seems to be very slow.</string>
+    <string name="resource_not_found_error">Resource not found.</string>
+    <string name="server_error">Something went wrong in server.</string>
 </resources>
