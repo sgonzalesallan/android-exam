@@ -1,0 +1,19 @@
+[
+   {
+      "code":"SAVINGS",
+      "description":"Savings",
+      "enabled":true,
+      "productTypes":[
+         {
+            "code":"PAYROLL_ACCOUNT",
+            "description":"Payroll Account",
+            "enabled":true
+         },
+         {
+            "code":"ATM_SAVING_ACCOUNT",
+            "description":"ATM Saving Account",
+            "enabled":true
+         }
+      ]
+   }
+]
