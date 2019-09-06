@@ -1,0 +1,27 @@
+[
+    {
+        "code": "SSS",
+        "description": "SSS",
+        "enabled": true
+    },
+    {
+        "code": "UMID",
+        "description": "UMID",
+        "enabled": true
+    },
+    {
+        "code": "PHILHEALTH",
+        "description": "Philhealth",
+        "enabled": true
+    },
+    {
+        "code": "DRIVERS_LICENSE",
+        "description": "Driver's License",
+        "enabled": true
+    },
+    {
+        "code": "PASSPORT",
+        "description": "Passport",
+        "enabled": true
+    }
+]
