@@ -15,5 +15,73 @@
             "enabled":true
          }
       ]
+   },
+   {
+      "code":"SAVINGS1",
+      "description":"Personal",
+      "enabled":true,
+      "productTypes":[
+         {
+            "code":"PAYROLL_ACCOUNT",
+            "description":"Personal Account",
+            "enabled":true
+         },
+         {
+            "code":"ATM_SAVING_ACCOUNT",
+            "description":"Personal ATM Saving Account",
+            "enabled":true
+         }
+      ]
+   },
+   {
+      "code":"SAVINGS2",
+      "description":"Allan",
+      "enabled":true,
+      "productTypes":[
+         {
+            "code":"PAYROLL_ACCOUNT",
+            "description":"Allan Pogi",
+            "enabled":true
+         },
+         {
+            "code":"ATM_SAVING_ACCOUNT",
+            "description":"ATM Saving Account",
+            "enabled":true
+         }
+      ]
+   },
+   {
+      "code":"SAVINGS",
+      "description":"Savings",
+      "enabled":true,
+      "productTypes":[
+         {
+            "code":"PAYROLL_ACCOUNT",
+            "description":"Payroll Account",
+            "enabled":true
+         },
+         {
+            "code":"ATM_SAVING_ACCOUNT",
+            "description":"ATM Saving Account",
+            "enabled":true
+         }
+      ]
+   },
+   {
+      "code":"SAVINGS",
+      "description":"Other",
+      "enabled":true,
+      "productTypes":[
+         {
+            "code":"PAYROLL_ACCOUNT",
+            "description":"Pamana Account",
+            "enabled":true
+         },
+         {
+            "code":"ATM_SAVING_ACCOUNT",
+            "description":"ATM Saving Account",
+            "enabled":true
+         }
+      ]
    }
 ]
