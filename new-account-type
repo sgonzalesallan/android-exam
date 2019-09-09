@@ -22,12 +22,12 @@
       "enabled":true,
       "productTypes":[
          {
-            "code":"PAYROLL_ACCOUNT",
+            "code":"PAYROLL_ACCOUNT1",
             "description":"Personal Account",
             "enabled":true
          },
          {
-            "code":"ATM_SAVING_ACCOUNT",
+            "code":"ATM_SAVING_ACCOUNT1",
             "description":"Personal ATM Saving Account",
             "enabled":true
          }
@@ -39,46 +39,46 @@
       "enabled":true,
       "productTypes":[
          {
-            "code":"PAYROLL_ACCOUNT",
+            "code":"PAYROLL_ACCOUNT2",
             "description":"Allan Pogi",
             "enabled":true
          },
          {
-            "code":"ATM_SAVING_ACCOUNT",
+            "code":"ATM_SAVING_ACCOUNT2",
             "description":"ATM Saving Account",
             "enabled":true
          }
       ]
    },
    {
-      "code":"SAVINGS",
+      "code":"SAVINGS4",
       "description":"Savings",
       "enabled":true,
       "productTypes":[
          {
-            "code":"PAYROLL_ACCOUNT",
+            "code":"PAYROLL_ACCOUNT4",
             "description":"Payroll Account",
             "enabled":true
          },
          {
-            "code":"ATM_SAVING_ACCOUNT",
+            "code":"ATM_SAVING_ACCOUNT4",
             "description":"ATM Saving Account",
             "enabled":true
          }
       ]
    },
    {
-      "code":"SAVINGS",
+      "code":"SAVINGS3",
       "description":"Other",
       "enabled":true,
       "productTypes":[
          {
-            "code":"PAYROLL_ACCOUNT",
+            "code":"PAYROLL_ACCOUNT3",
             "description":"Pamana Account",
             "enabled":true
          },
          {
-            "code":"ATM_SAVING_ACCOUNT",
+            "code":"ATM_SAVING_ACCOUNT3",
             "description":"ATM Saving Account",
             "enabled":true
          }
